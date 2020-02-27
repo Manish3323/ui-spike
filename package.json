@@ -2,6 +2,7 @@
   "name": "sample-webapp",
   "version": "1.0.0",
   "description": "",
+  
   "main": "./src/index.tsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",

@@ -1,4 +1,4 @@
 import * as React from "react";
-import { Hello } from "./Hello";
+import { Locations } from "./location-client/Locations";
 
-export const App = () => <Hello name="My React App" />;
+export const App = () => <Locations />;
