@@ -1,14 +1,14 @@
 export class HttpClient {
-  async msocketPost<T>(
+  async post<T>(
     hostname: string,
     port: number,
     payload: any
   ): Promise<T> {
     const url = `http://${hostname}:${port}/post-endpoint`;
-    return this.post(url, payload)
+    return this.fetch(url, payload)
   }
 
-  async post<T>(
+  async fetch<T>(
     url: string,
     payload: any
   ): Promise<T> {
