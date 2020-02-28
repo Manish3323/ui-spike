@@ -1,5 +1,6 @@
 import * as React from "react";
 import { LocationApi } from "./api";
+import { TypedLocation } from "./types/Location";
 
 const locationApi = new LocationApi("localhost", 7654);
 
@@ -8,10 +9,8 @@ export class Locations extends React.Component {
     locations: new Array()
   };
   async componentDidMount() {
-    let locations = await locationApi.list();
-    this.setState({
-      locations
-    });
+    let locations: Array<TypedLocation>  = await locationApi.list();
+    this.setState({locations});
   }
 
   render() {
@@ -21,7 +20,7 @@ export class Locations extends React.Component {
         <div>
           <ul>
             {this.state.locations.map(loc => (
-              <li id={loc.prefix}>{loc.prefix}</li>
+              <li key={loc.connection.prefix}>{loc.connection.prefix}</li>
             ))}
           </ul>
         </div>

@@ -1,4 +1,5 @@
 import { http } from "./http";
+import { TypedLocation } from "./types/Location";
 
 export class LocationApi {
   private hostname: string;
@@ -10,9 +11,7 @@ export class LocationApi {
   }
 
   async list() {
-    let payload = {
-      _type: "ListEntries"
-    };
-    return await http<any>(this.hostname, this.port, payload);
+    let payload = { _type: "ListEntries" };
+    return await http<Array<TypedLocation>>(this.hostname, this.port, payload);
   }
 }
