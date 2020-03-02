@@ -1,6 +1,8 @@
-type SubmitResponse = Completed
+import { Parameter } from "../../../params/Parameter";
 
-interface Completed{
+export type SubmitResponse = Completed
+
+export interface Completed{
     runId: string,
-    result: Set<Parameter
+    result: Set<Parameter<number>>
 }

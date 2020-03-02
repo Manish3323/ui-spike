@@ -1,8 +1,10 @@
+import { Parameter, ParameterKeyType } from "../../../params/Parameter";
+
 export interface Command {
     source: string,
     commandName: string,
     maybeObsId?: string,
-    paramSet: Set<Parameter>
+    paramSet: Set<Parameter<ParameterKeyType>>
 }
 
 export interface ControlCommand extends Command {

@@ -1,5 +1,6 @@
 import { HttpClient } from "../../http-client";
 import { ControlCommand } from "./types/Command";
+import { Completed } from "./types/response";
 
 export class CommandApi {
     private hostname: string;
@@ -12,12 +13,24 @@ export class CommandApi {
     }
 
     async submit() {
-        let payload: ControlCommand = {
-            _type: "Observe",
-            source: "TCS.filter.wheel",
-            commandName: "move",
-            paramSet: new Set()
-        };
-        return await this.httpClient.post<SubmitResponse>(this.hostname, this.port, payload);
+        let payload = {
+            "_type": "ComponentCommand",
+            "componentId": {
+                "prefix": "NFIRAOS.SampleAssembly",
+                "componentType": "assembly"
+            },
+            "command": {
+                "_type": "Submit",
+                "controlCommand": {
+                    "_type": "Setup",
+                    "source": "TCS.filter.wheel",
+                    "commandName": "move",
+                    "maybeObsId": ["obs001"],
+                    "paramSet": new Array()
+                }
+            }
+        }
+
+        return await this.httpClient.post<Completed>(this.hostname, this.port, payload);
     }
 }
