@@ -1,6 +1,8 @@
 import { HttpClient } from "../../http-client";
-import { ControlCommand } from "./types/Command";
+import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
 import { Completed } from "./types/response";
+import { Parameter, ParameterType } from "../../params/Parameter";
+import { intKey } from "../../params/KeyTypes";
 
 export class CommandApi {
     private hostname: string;
@@ -13,24 +15,30 @@ export class CommandApi {
     }
 
     async submit() {
-        let payload = {
-            "_type": "ComponentCommand",
-            "componentId": {
-                "prefix": "NFIRAOS.SampleAssembly",
-                "componentType": "assembly"
-            },
-            "command": {
-                "_type": "Submit",
-                "controlCommand": {
-                    "_type": "Setup",
-                    "source": "TCS.filter.wheel",
-                    "commandName": "move",
-                    "maybeObsId": ["obs001"],
-                    "paramSet": new Array()
-                }
-            }
+        const intParam = intKey("someInt").set([12,233,3,3])
+        const parameters: Parameter<ParameterType>[] = [intParam];
+        let setupCommand: ControlCommand = {
+            "_type": "Setup",
+            "source": "TCS.filter.wheel",
+            "commandName": "move",
+            "maybeObsId": ["obs001"],
+            "paramSet": parameters
         }
 
+        let submit: CommandMessage = {
+            "_type": "Submit",
+            "controlCommand": setupCommand
+        }
+
+        let assembly: ComponentId = {
+            "prefix": "NFIRAOS.SampleAssembly",
+            "componentType": "Assembly"
+        }
+        let payload: GatewayCommand = {
+            "_type": "ComponentCommand",
+            "componentId": assembly,
+            command: submit
+        }
         return await this.httpClient.post<Completed>(this.hostname, this.port, payload);
     }
 }

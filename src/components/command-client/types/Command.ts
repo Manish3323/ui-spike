@@ -1,10 +1,20 @@
-import { Parameter, ParameterKeyType } from "../../../params/Parameter";
+import { Parameter, ParameterType } from "../../../params/Parameter";
 
 export interface Command {
     source: string,
     commandName: string,
-    maybeObsId?: string,
-    paramSet: Set<Parameter<ParameterKeyType>>
+    maybeObsId?: Array<string>,
+    paramSet: Parameter<ParameterType>[]
+}
+
+export interface GatewayCommand {
+    _type: "ComponentCommand" | "SequencerCommand"
+    componentId: ComponentId,
+    command: CommandMessage
+}
+export interface CommandMessage {
+    _type: "Submit" | "Validate" | "Oneway"
+    controlCommand: ControlCommand
 }
 
 export interface ControlCommand extends Command {
