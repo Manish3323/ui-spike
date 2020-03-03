@@ -1,4 +1,5 @@
-import { Parameter, ParameterType } from "../../../params/Parameter";
+import { ParameterType } from "../../../params/KeyTypes";
+import { Parameter } from "../../../params/Parameter";
 
 export interface Command {
     source: string,

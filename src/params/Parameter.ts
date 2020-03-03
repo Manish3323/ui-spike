@@ -1,6 +1,6 @@
-export type ParameterType = number | string | boolean | number[]
-export type KeyType0 = "IntKey" | "StringKey" | "BooleanKey" | "IntArrayKey"
-type Units = "NoUnits" | "angstrom" | "arcmin" | "arcsec" | "day" | "degree" | "elvolt" | "gram" | "hour" | "hertz" | "joule" | "kelvin" | "kilogram" | "kilometer"
+import { Units } from "./Units";
+import { KeyType0, ParameterType } from "./KeyTypes";
+
 export class Parameter<T extends ParameterType> {
     keyname: string
     keyType: KeyType0

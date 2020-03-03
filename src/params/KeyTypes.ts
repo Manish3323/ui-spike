@@ -1,5 +1,7 @@
-import { ParameterType, KeyType0 } from "./Parameter";
 import { Key } from "./Key";
+
+export type ParameterType = number | string | boolean | number[]
+export type KeyType0 = "IntKey" | "StringKey" | "BooleanKey" | "IntArrayKey"
 
 const SimpleKeyType = <T extends ParameterType>(keyType0: KeyType0, name: string) => {
     return new Key<T>(name, keyType0)

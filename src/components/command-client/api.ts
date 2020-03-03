@@ -1,8 +1,8 @@
 import { HttpClient } from "../../http-client";
 import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
 import { Completed } from "./types/response";
-import { Parameter, ParameterType } from "../../params/Parameter";
-import { intKey } from "../../params/KeyTypes";
+import { intKey, ParameterType } from "../../params/KeyTypes";
+import { Parameter } from "../../params/Parameter";
 
 export class CommandApi {
     private hostname: string;

@@ -1,4 +1,5 @@
-import {ParameterType, KeyType0, Parameter} from "./Parameter";
+import { ParameterType, KeyType0 } from "./KeyTypes";
+import { Parameter } from "./Parameter";
 
 export class Key<T extends ParameterType> {
     keyname: string
