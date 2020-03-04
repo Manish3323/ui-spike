@@ -2,7 +2,7 @@ import { HttpClient } from "../../http-client";
 import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
 import { Completed } from "./types/response";
 import { Parameter } from "../../params/Parameter";
-import { IntKey, intKey, Key, stringKey, StringKey } from "../../params/Key";
+import { IntKey, intKey, stringKey, StringKey } from "../../params/Key";
 
 export class CommandApi {
     private hostname: string;

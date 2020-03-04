@@ -1,4 +1,4 @@
-import { Key } from "../../../params/Key";
+import { Key } from "../../../params/BaseKey";
 import { Parameter } from "../../../params/Parameter";
 
 export interface Command {
