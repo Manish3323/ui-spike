@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CommandApi } from "./api";
 import { Completed } from "./types/response";
-import { intKey } from "../../params/KeyTypes";
+import { intKey } from "../../params/Key";
 
 const commandApi = new CommandApi("localhost", 9999);
 

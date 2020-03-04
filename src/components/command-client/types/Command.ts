@@ -1,11 +1,11 @@
-import { ParameterType } from "../../../params/KeyTypes";
+import { Key } from "../../../params/Key";
 import { Parameter } from "../../../params/Parameter";
 
 export interface Command {
     source: string,
     commandName: string,
     maybeObsId?: Array<string>,
-    paramSet: Parameter<ParameterType>[]
+    paramSet: Parameter<Key>[]
 }
 
 export interface GatewayCommand {

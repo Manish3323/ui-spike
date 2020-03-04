@@ -1,22 +1,15 @@
-import { Units } from "./Units";
-import { KeyType0, ParameterType } from "./KeyTypes";
+import {Units} from "./Units";
+import {Key, NameOfKey, TypeOfKey} from "./Key";
 
-export class Parameter<T extends ParameterType> {
-    keyname: string
-    keyType: KeyType0
-    values: Array<T>
-    units: Units
-    constructor(keyname: string, keyType: KeyType0, values: Array<T>, units: Units) {
-        this.keyname = keyname
-        this.keyType = keyType
-        this.values = values
-        this.units = units
+export class Parameter<T extends Key> {
+
+    constructor(readonly keyName: string, readonly keyType: NameOfKey<T>, readonly values: TypeOfKey<T>[], readonly units: Units) {
     }
 
     toJSON() {
         return {
-            [`${this.keyType}`]: {
-                keyName: this.keyname,
+            [this.keyType]: {
+                keyName: this.keyName,
                 values: this.values,
                 units: this.units
             }

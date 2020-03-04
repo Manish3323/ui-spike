@@ -1,8 +1,8 @@
 import { HttpClient } from "../../http-client";
 import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
 import { Completed } from "./types/response";
-import { intKey, ParameterType } from "../../params/KeyTypes";
 import { Parameter } from "../../params/Parameter";
+import { IntKey, intKey, Key, stringKey, StringKey } from "../../params/Key";
 
 export class CommandApi {
     private hostname: string;
@@ -15,8 +15,9 @@ export class CommandApi {
     }
 
     async submit() {
-        const intParam = intKey("someInt").set([12,233,3,3])
-        const parameters: Parameter<ParameterType>[] = [intParam];
+        const intParam: Parameter<IntKey> = intKey("someInt").set([12, 233, 3, 3])
+        const sParam: Parameter<StringKey> = stringKey("someInt").set(["12,233,3,3"])
+        const parameters: Parameter<any>[] = [intParam, sParam];
         let setupCommand: ControlCommand = {
             "_type": "Setup",
             "source": "TCS.filter.wheel",
