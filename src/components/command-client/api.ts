@@ -1,8 +1,8 @@
 import { HttpClient } from "../../http-client";
 import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
-import { Completed } from "./types/response";
 import { Parameter } from "../../params/Parameter";
 import { IntKey, intKey, stringKey, StringKey } from "../../params/Key";
+import { CommandResponse } from "./types/response";
 
 export class CommandApi {
     private hostname: string;
@@ -40,6 +40,6 @@ export class CommandApi {
             "componentId": assembly,
             command: submit
         }
-        return await this.httpClient.post<Completed>(this.hostname, this.port, payload);
+        return await this.httpClient.post<CommandResponse>(this.hostname, this.port, payload);
     }
 }

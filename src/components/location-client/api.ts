@@ -13,7 +13,7 @@ export class LocationApi {
 
   async list() {
     let payload = { _type: "ListEntries" };
-    return await this.httpClient.post<Array<TypedLocation>>(this.hostname, this.port, payload);
+    return await this.httpClient.post<TypedLocation[]>(this.hostname, this.port, payload);
   }
 
 }
