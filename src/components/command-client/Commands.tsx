@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CommandApi } from "./api";
-import { CommandResponse } from "./types/response";
+import { CommandServiceResponses } from "./types/response";
 import { intKey } from "../../params/Key";
 const commandApi = new CommandApi("localhost", 9999);
 
@@ -12,7 +12,7 @@ export class Commands extends React.Component {
     };
 
     async submitCommand() {
-        let commandResponse: CommandResponse = await commandApi.submit();
+        let commandResponse: CommandServiceResponses = await commandApi.submit();
         this.setState({ commandResponse });
     }
 
