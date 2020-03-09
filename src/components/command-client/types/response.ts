@@ -5,7 +5,7 @@ type SubmitResponseTypes = "Error" | "Invalid" | "Locked" | "Completed" | "Start
 type OneWayResponseTypes = "Accepted" | "Invalid" | "Locked"
 type IssueKinds = "IdNotAvailableIssue" | "MissingKeyIssue"
 
-type CommandResponse = {
+export type CommandResponse = {
     runId: string,
     result?: Set<Parameter<Key>>,
     issue?: Issue
@@ -20,13 +20,4 @@ interface Issue {
     _type: IssueKinds,
     reason: string
 }
-
 export type CommandServiceResponses = SubmitResponse | OneWayResponse
-
-
-// type CommandResponse = {
-//     _type: string,
-//     runId: string,
-//     result?: Set<Parameter<Key>>,
-//     issue?: Issue
-// }

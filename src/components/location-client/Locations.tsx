@@ -1,7 +1,6 @@
 import * as React from "react";
 import { LocationApi } from "./api";
 import { TypedLocation } from "./types/Location";
-
 const locationApi = new LocationApi("localhost", 7654);
 
 export class Locations extends React.Component {
@@ -19,7 +18,7 @@ export class Locations extends React.Component {
         <h1> Locations </h1>
         <div>
           <ul>
-            {this.state.locations.map(loc => (
+            {!!this.state.locations && this.state.locations.map(loc => (
               <li key={loc.connection.prefix}>{loc.connection.prefix}</li>
             ))}
           </ul>
