@@ -18,8 +18,8 @@ export class WebSocketClient {
         })
     }
 
-    receive = () => {
-        
+    onMessageRecieveHandler = (fn: Function) => {
+        this.wss.onmessage = (event: MessageEvent) => fn(event)
     }
 
     send = (message: GatewayCommand): void => {

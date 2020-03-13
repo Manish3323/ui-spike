@@ -1,4 +1,4 @@
-import { ServiceResponses as ServiceResponse, HttpRequests } from "./components/ServiceResponse";
+import { ServiceResponses as ServiceResponse } from "./components/ServiceResponse";
 
 type RequestConfig = {
   url: string,
@@ -70,7 +70,6 @@ class Success {
 class Error {
   constructor(readonly reason: string) { }
 }
-
 
 const clientFetch = async (url: string, payload: any, method: "POST" | "GET"): Promise<any> => {
   const request: RequestConfig = {
