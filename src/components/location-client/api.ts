@@ -1,10 +1,9 @@
-import { HttpClient } from "../../http-client";
+import { post } from "../../http-client";
 import { TypedLocation } from "./types/Location";
 
 export class LocationApi {
   private hostname: string;
   private port: number;
-  private httpClient = new HttpClient()
 
   constructor($hostname: string, $port: number) {
     this.hostname = $hostname;
@@ -13,7 +12,8 @@ export class LocationApi {
 
   async list() {
     let payload = { _type: "ListEntries" };
-    return await this.httpClient.post<TypedLocation[]>(this.hostname, this.port, payload);
+
+    return await post<TypedLocation[]>(this.hostname, this.port, payload);
   }
 
 }

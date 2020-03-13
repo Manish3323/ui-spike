@@ -1,5 +1,5 @@
-import { HttpClient } from "../../http-client";
-import { ControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
+import { post } from "../../http-client";
+import { HttpMessageControlCommand, GatewayCommand, CommandMessage } from "./types/Command";
 import { Parameter } from "../../params/Parameter";
 import { IntKey, intKey, stringKey, StringKey } from "../../params/Key";
 import { CommandServiceResponses } from "./types/response";
@@ -7,7 +7,6 @@ import { CommandServiceResponses } from "./types/response";
 export class CommandApi {
     private hostname: string;
     private port: number;
-    private httpClient = new HttpClient()
 
     constructor($hostname: string, $port: number) {
         this.hostname = $hostname;
@@ -18,7 +17,7 @@ export class CommandApi {
         const intParam: Parameter<IntKey> = intKey("someInt").set([12, 233, 3, 3])
         const sParam: Parameter<StringKey> = stringKey("someInt").set(["12,233,3,3"])
         const parameters: Parameter<any>[] = [intParam, sParam];
-        let setupCommand: ControlCommand = {
+        let setupCommand: HttpMessageControlCommand = {
             "_type": "Setup",
             "source": "TCS.filter.wheel",
             "commandName": "move",
@@ -40,6 +39,6 @@ export class CommandApi {
             "componentId": assembly,
             command: submit
         }
-        return await this.httpClient.post<CommandServiceResponses>(this.hostname, this.port, payload);
+        return await post<CommandServiceResponses>(this.hostname, this.port, payload);
     }
 }

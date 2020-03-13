@@ -18,7 +18,7 @@ export class Locations extends React.Component {
         <h1> Locations </h1>
         <div>
           <ul>
-            {!!this.state.locations && this.state.locations.map(loc => (
+            {!!this.state.locations && this.state.locations.length > 0 && this.state.locations.map(loc => (
               <li key={loc.connection.prefix}>{loc.connection.prefix}</li>
             ))}
           </ul>

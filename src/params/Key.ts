@@ -28,3 +28,4 @@ structKey("structs", "NoUnits").set([{ paramSet: [intParam, stringparam] }])
 const gc = choiceKey("choiceOfDays", "NoUnits")
 const choices = gc.makeChoices('sunday','monday', 'tuesday')
 gc.setChoice(choices, ['sunday'])
+
