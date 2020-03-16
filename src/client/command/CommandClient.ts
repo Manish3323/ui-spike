@@ -7,13 +7,9 @@ import { ComponentId } from '../location/types/Connection'
 import { Parameter } from '../../params/Parameter'
 
 export interface CommandClient {
-  submit(
-    componentId: ComponentId,
-    command: CommandMessage,
-  ): Promise<CommandServiceResponses>
+  submit(command: CommandMessage): Promise<CommandServiceResponses>
 
   subscribeCurrentState(
-    componentId: ComponentId,
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void,
   ): Subscription
@@ -22,8 +18,9 @@ export interface CommandClient {
 export const CommandClient = (
   hostname: string,
   port: number,
+  componentId: ComponentId,
 ): CommandClient => {
-  const submit = async (componentId: ComponentId, command: CommandMessage) => {
+  const submit = async (command: CommandMessage) => {
     const payload: GatewayCommand = {
       _type: 'ComponentCommand',
       componentId: componentId,
@@ -33,7 +30,6 @@ export const CommandClient = (
   }
 
   const subscribeCurrentState = (
-    componentId: ComponentId,
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void,
   ): Subscription => {

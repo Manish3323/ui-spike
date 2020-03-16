@@ -1,16 +1,8 @@
 import { ComponentId } from '../location/types/Connection'
 import { intKey, IntKey, StringKey, stringKey } from '../../params/Key'
 import { Parameter } from '../../params/Parameter'
-import { Ws } from '../../utils/Ws'
-import { CommandClient, CurrentState } from './CommandClient'
-import {
-  CommandMessage,
-  GatewayCommand,
-  HttpMessageControlCommand,
-} from './types/Command'
-import { WebSocketCommandMessage } from './types/WebsocketCommand'
-
-const commandClient = CommandClient('localhost', 8090)
+import { CommandClient } from './CommandClient'
+import { CommandMessage, HttpMessageControlCommand } from './types/Command'
 
 test('http', async () => {
   const intParam: Parameter<IntKey> = intKey('someInt').set([12, 233, 3, 3])
@@ -33,9 +25,10 @@ test('http', async () => {
     prefix: 'CSW.ncc.trombone',
     componentType: 'HCD',
   }
+  const commandClient = CommandClient('localhost', 8090, assembly)
 
   console.log('Submitting command ...')
-  const response = await commandClient.submit(assembly, submit)
+  const response = await commandClient.submit(submit)
 
   console.log(response)
 })
@@ -45,9 +38,10 @@ test('websocket', async () => {
     prefix: 'CSW.ncc.trombone',
     componentType: 'HCD',
   }
+  const commandClient = CommandClient('localhost', 8090, componentId)
 
   console.log('Subscribing to current state ...')
-  commandClient.subscribeCurrentState(componentId, new Set(), console.log)
+  commandClient.subscribeCurrentState(new Set(), console.log)
 
   await sleep(100000)
 }, 100000)
