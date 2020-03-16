@@ -1,18 +1,18 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const webpack = require("webpack");
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: './src/index.tsx',
 
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index_bundle.js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index_bundle.js',
   },
-  mode: "production",
-  devtool: "source-map",
+  mode: 'production',
+  devtool: 'source-map',
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.tsx', '.js'],
   },
 
   module: {
@@ -22,17 +22,17 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader"
-          }
-        ]
+            loader: 'ts-loader',
+          },
+        ],
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
-        loader: "source-map-loader"
-      }
-    ]
+        loader: 'source-map-loader',
+      },
+    ],
   },
 
   // When importing a module whose path matches one of the following, just
@@ -41,16 +41,16 @@ module.exports = {
   // dependencies, which allows browsers to cache those libraries between builds.
 
   devServer: {
-    port: 9000
+    port: 9000,
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html"
+      template: './src/index.html',
+      filename: 'index.html',
     }),
     new webpack.ProvidePlugin({
-      React: "react"
-    })
-  ]
-};
+      React: 'react',
+    }),
+  ],
+}

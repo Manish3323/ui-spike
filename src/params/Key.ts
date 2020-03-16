@@ -1,8 +1,9 @@
 import { Units } from './Units'
 import { BaseKey, ChoiceKeyFactory } from './BaseKey'
 import { Parameter } from './Parameter'
+
 export type Primitive = string | number | boolean
-interface struct {
+export interface Struct {
   paramSet: Parameter<Key>[]
 }
 export type KeyType<T extends Key> = T['KeyType']
@@ -12,7 +13,7 @@ export type Key = IntKey | StringKey | IntArrayKey | StructKey | ChoiceKey<any>
 export type IntKey = { KeyTag: 'IntKey'; KeyType: number }
 export type StringKey = { KeyTag: 'StringKey'; KeyType: string }
 export type IntArrayKey = { KeyTag: 'IntArrayKey'; KeyType: number[] }
-export type StructKey = { KeyTag: 'StructKey'; KeyType: struct }
+export type StructKey = { KeyTag: 'StructKey'; KeyType: Struct }
 export type ChoiceKey<T> = { KeyTag: 'ChoiceKey'; KeyType: T }
 
 // Key Api
