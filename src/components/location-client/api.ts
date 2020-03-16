@@ -1,4 +1,4 @@
-import { post } from '../../http-client'
+import { post } from '../../utils/http-client'
 import { TypedLocation } from './types/Location'
 
 export class LocationApi {

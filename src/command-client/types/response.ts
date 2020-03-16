@@ -1,5 +1,5 @@
-import { Parameter } from '../../../params/Parameter'
-import { Key } from '../../../params/Key'
+import { Parameter } from '../../params/Parameter'
+import { Key } from '../../params/Key'
 
 type SubmitResponseTypes =
   | 'Error'
@@ -16,14 +16,18 @@ export type CommandResponse = {
   result?: Set<Parameter<Key>>
   issue?: Issue
 }
+
 export interface SubmitResponse extends CommandResponse {
   _type: SubmitResponseTypes
 }
+
 export interface OneWayResponse extends CommandResponse {
   _type: OneWayResponseTypes
 }
+
 interface Issue {
   _type: IssueKinds
   reason: string
 }
+
 export type CommandServiceResponses = SubmitResponse | OneWayResponse

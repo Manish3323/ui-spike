@@ -1,4 +1,4 @@
-import { ServiceResponses as ServiceResponse } from './components/ServiceResponse'
+import { ServiceResponses as ServiceResponse } from '../components/ServiceResponse'
 
 type RequestConfig = {
   url: string

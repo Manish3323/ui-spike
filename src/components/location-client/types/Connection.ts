@@ -1,10 +1,15 @@
-interface Connection {
+export interface Connection {
   componentId: ComponentId
 }
 
-interface ComponentId {
+export interface ComponentId {
   prefix: string
   componentType: ComponentType
 }
 
-type ComponentType = 'Assembly' | 'HCD' | 'Sequencer' | 'Service' | 'assembly'
+export type ComponentType =
+  | 'Assembly'
+  | 'HCD'
+  | 'Sequencer'
+  | 'Service'
+  | 'assembly'

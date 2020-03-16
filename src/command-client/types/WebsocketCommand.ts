@@ -3,6 +3,7 @@ interface QueryFinalMessage {
   runId: string
   timeoutInSeconds: number
 }
+
 interface SubscribeCurrentStateMessage {
   _type: 'SubscribeCurrentState'
   names: string[]
