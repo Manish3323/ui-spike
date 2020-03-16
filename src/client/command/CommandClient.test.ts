@@ -41,27 +41,13 @@ test('http', async () => {
 })
 
 test('websocket', async () => {
-  const websocket = new Ws('localhost', 8090)
-
-  const command: WebSocketCommandMessage = {
-    _type: 'SubscribeCurrentState',
-    names: [],
-  }
   const componentId: ComponentId = {
     prefix: 'CSW.ncc.trombone',
     componentType: 'HCD',
   }
-  const gatewayCommand: GatewayCommand = {
-    _type: 'ComponentCommand',
-    componentId: componentId,
-    command: command,
-  }
-
-  console.log('Sending websocket request ...')
-  websocket.send(gatewayCommand)
 
   console.log('Subscribing to current state ...')
-  websocket.subscribe<CurrentState>(console.log)
+  commandClient.subscribeCurrentState(componentId, new Set(), console.log)
 
   await sleep(100000)
 }, 100000)
