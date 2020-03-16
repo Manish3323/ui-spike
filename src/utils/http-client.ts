@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { ServiceResponses as ServiceResponse } from '../components/ServiceResponse'
 
 type RequestConfig = {
