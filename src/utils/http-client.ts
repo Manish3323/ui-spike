@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import { ServiceResponses as ServiceResponse } from '../components/ServiceResponse'
+import { ServiceResponses as ServiceResponse } from '../ServiceResponse'
 
 type RequestConfig = {
   url: string

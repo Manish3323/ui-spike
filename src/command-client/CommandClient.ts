@@ -3,7 +3,7 @@ import { Subscription, Ws } from '../utils/Ws'
 import { CommandMessage, GatewayCommand } from './types/Command'
 import { CommandServiceResponses } from './types/response'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
-import { ComponentId } from '../components/location-client/types/Connection'
+import { ComponentId } from '../location-client/types/Connection'
 import { Parameter } from '../params/Parameter'
 
 export interface CommandClient {
