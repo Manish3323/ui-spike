@@ -52,7 +52,7 @@ export class CommandApi {
 }
 
 export interface CurrentState {
-  prefix: string,
-  stateName: string,
+  prefix: string
+  stateName: string
   paramSet: Parameter<any>[]
 }
