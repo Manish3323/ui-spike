@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { CommandApi } from './api'
 import { CommandServiceResponses } from './types/response'
-import { intKey } from '../../params/Key'
+import { intKey, StringKey, IntKey, stringKey } from '../../params/Key'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
-import { GatewayCommand } from './types/Command'
-import { ws } from '../../ws'
+import {
+  GatewayCommand,
+  HttpMessageControlCommand,
+  CommandMessage,
+} from './types/Command'
+import { Ws } from '../../ws'
+import { Parameter } from '../../params/Parameter'
 const commandApi = new CommandApi('localhost', 9999)
 
 export class Commands extends React.Component {
@@ -15,28 +20,52 @@ export class Commands extends React.Component {
   }
 
   async submitCommand() {
-    let commandResponse: CommandServiceResponses = await commandApi.submit()
+    const intParam: Parameter<IntKey> = intKey('someInt').set([12, 233, 3, 3])
+    const sParam: Parameter<StringKey> = stringKey('someInt').set([
+      '12,233,3,3',
+    ])
+    const parameters: Parameter<any>[] = [intParam, sParam]
+    let setupCommand: HttpMessageControlCommand = {
+      _type: 'Setup',
+      source: 'TCS.filter.wheel',
+      commandName: 'move',
+      maybeObsId: ['obs001'],
+      paramSet: parameters,
+    }
+
+    let submit: CommandMessage = {
+      _type: 'Submit',
+      controlCommand: setupCommand,
+    }
+
+    let assembly: ComponentId = {
+      prefix: 'NFIRAOS.SampleAssembly',
+      componentType: 'Assembly',
+    }
+
+    let commandResponse: CommandServiceResponses = await commandApi.submit(
+      assembly,
+      submit,
+    )
     this.setState({ commandResponse })
   }
 
   render() {
-    const websocket = ws('localhost', 9999)
-    websocket.then(w => {
-      const command: WebSocketCommandMessage = {
-        _type: 'SubscribeCurrentState',
-        names: ['idle'],
-      }
-      const componentId: ComponentId = {
-        prefix: 'NFIRAOS.SampleAssembly',
-        componentType: 'Assembly',
-      }
-      const gatewayCommand: GatewayCommand = {
-        _type: 'ComponentCommand',
-        componentId: componentId,
-        command: command,
-      }
-      w.send(JSON.stringify(gatewayCommand))
-    })
+    const websocket = new Ws('localhost', 9999)
+    const command: WebSocketCommandMessage = {
+      _type: 'SubscribeCurrentState',
+      names: ['idle'],
+    }
+    const componentId: ComponentId = {
+      prefix: 'NFIRAOS.SampleAssembly',
+      componentType: 'Assembly',
+    }
+    const gatewayCommand: GatewayCommand = {
+      _type: 'ComponentCommand',
+      componentId: componentId,
+      command: command,
+    }
+    websocket.send(gatewayCommand)
 
     return (
       <div>

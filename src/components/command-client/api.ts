@@ -1,9 +1,10 @@
 import { post } from '../../http-client'
-import { ws } from '../../ws'
+import { Ws } from '../../ws'
 import {
   HttpMessageControlCommand,
   GatewayCommand,
   CommandMessage,
+  Command,
 } from './types/Command'
 import { Parameter } from '../../params/Parameter'
 import { IntKey, intKey, stringKey, StringKey } from '../../params/Key'
@@ -19,33 +20,11 @@ export class CommandApi {
     this.port = $port
   }
 
-  async submit() {
-    const intParam: Parameter<IntKey> = intKey('someInt').set([12, 233, 3, 3])
-    const sParam: Parameter<StringKey> = stringKey('someInt').set([
-      '12,233,3,3',
-    ])
-    const parameters: Parameter<any>[] = [intParam, sParam]
-    let setupCommand: HttpMessageControlCommand = {
-      _type: 'Setup',
-      source: 'TCS.filter.wheel',
-      commandName: 'move',
-      maybeObsId: ['obs001'],
-      paramSet: parameters,
-    }
-
-    let submit: CommandMessage = {
-      _type: 'Submit',
-      controlCommand: setupCommand,
-    }
-
-    let assembly: ComponentId = {
-      prefix: 'NFIRAOS.SampleAssembly',
-      componentType: 'Assembly',
-    }
-    let payload: GatewayCommand = {
+  async submit(componentId: ComponentId, command: CommandMessage) {
+    const payload: GatewayCommand = {
       _type: 'ComponentCommand',
-      componentId: assembly,
-      command: submit,
+      componentId: componentId,
+      command: command,
     }
     return await post<CommandServiceResponses>(
       this.hostname,
@@ -55,30 +34,25 @@ export class CommandApi {
   }
 
   async subscribeCurrentState(
+    componentId: ComponentId,
     stateNames: Set<string>,
     onStateChange: (state: CurrentState) => void,
   ) {
-    const websocket = await ws(this.hostname, this.port)
+    const websocket = new Ws(this.hostname, this.port)
 
     const command: WebSocketCommandMessage = {
       _type: 'SubscribeCurrentState',
       names: Array.from(stateNames.values()),
     }
-    const componentId: ComponentId = {
-      prefix: 'NFIRAOS.SampleAssembly',
-      componentType: 'Assembly',
-    }
+
     const gatewayCommand: GatewayCommand = {
       _type: 'ComponentCommand',
       componentId: componentId,
       command: command,
     }
 
-    websocket.send(JSON.stringify(gatewayCommand))
-
-    websocket.onmessage = (msg: MessageEvent) => {
-      onStateChange(msg.data)
-    }
+    websocket.send(gatewayCommand)
+    websocket.subscribe(onStateChange)
   }
 }
 
