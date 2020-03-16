@@ -8,7 +8,6 @@ export class WebSocketClient {
             this.wss = new WebSocket(`ws://${hostname}:${port}/websocket-endpoint`)
             this.wss.onopen = ((event: Event) => {
                 this.wss.onmessage = ((event: MessageEvent) => {
-                    console.log('received data', event.data)
                 })
                 resolve({ message: 'connection open to communicate!!', ...event })
             })
@@ -17,7 +16,9 @@ export class WebSocketClient {
             })
         })
     }
-
+    subscribeToCurrentState = (gatewayCommand: GatewayCommand) => {
+        this.send(gatewayCommand)
+    }
     onMessageRecieveHandler = (fn: Function) => {
         this.wss.onmessage = (event: MessageEvent) => fn(event)
     }
