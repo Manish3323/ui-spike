@@ -50,6 +50,7 @@ export class CommandApi {
   }
 }
 
+// fixme: change it to actual CurrentState model
 interface CurrentState {
   name: string
 }
