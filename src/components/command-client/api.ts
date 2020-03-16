@@ -3,6 +3,7 @@ import { Ws } from '../../Ws'
 import { CommandMessage, GatewayCommand } from './types/Command'
 import { CommandServiceResponses } from './types/response'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
+import { Parameter } from '../../params/Parameter'
 
 export class CommandApi {
   private hostname: string
@@ -51,5 +52,7 @@ export class CommandApi {
 }
 
 export interface CurrentState {
-  name: string
+  prefix: string,
+  stateName: string,
+  paramSet: Parameter<any>[]
 }
