@@ -1,11 +1,10 @@
-interface Connection{
-    componentId: ComponentId,
+interface Connection {
+  componentId: ComponentId
 }
 
 interface ComponentId {
-    prefix: string,
-    componentType: ComponentType
+  prefix: string
+  componentType: ComponentType
 }
 
-
-type ComponentType = "Assembly" | "HCD" | "Sequencer" | "Service"
+type ComponentType = 'Assembly' | 'HCD' | 'Sequencer' | 'Service'

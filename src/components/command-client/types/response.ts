@@ -1,23 +1,29 @@
-import { Parameter } from "../../../params/Parameter";
-import { Key } from "../../../params/Key";
+import { Parameter } from '../../../params/Parameter'
+import { Key } from '../../../params/Key'
 
-type SubmitResponseTypes = "Error" | "Invalid" | "Locked" | "Completed" | "Started" | "Cancelled"
-type OneWayResponseTypes = "Accepted" | "Invalid" | "Locked"
-type IssueKinds = "IdNotAvailableIssue" | "MissingKeyIssue"
+type SubmitResponseTypes =
+  | 'Error'
+  | 'Invalid'
+  | 'Locked'
+  | 'Completed'
+  | 'Started'
+  | 'Cancelled'
+type OneWayResponseTypes = 'Accepted' | 'Invalid' | 'Locked'
+type IssueKinds = 'IdNotAvailableIssue' | 'MissingKeyIssue'
 
 export type CommandResponse = {
-    runId: string,
-    result?: Set<Parameter<Key>>,
-    issue?: Issue
+  runId: string
+  result?: Set<Parameter<Key>>
+  issue?: Issue
 }
 export interface SubmitResponse extends CommandResponse {
-    _type: SubmitResponseTypes
-};
+  _type: SubmitResponseTypes
+}
 export interface OneWayResponse extends CommandResponse {
-    _type: OneWayResponseTypes
-};
+  _type: OneWayResponseTypes
+}
 interface Issue {
-    _type: IssueKinds,
-    reason: string
+  _type: IssueKinds
+  reason: string
 }
 export type CommandServiceResponses = SubmitResponse | OneWayResponse

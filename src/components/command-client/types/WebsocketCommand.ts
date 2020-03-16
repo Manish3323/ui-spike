@@ -1,11 +1,13 @@
 interface QueryFinalMessage {
-    _type: "QueryFinal",
-    runId: string,
-    timeoutInSeconds: number
+  _type: 'QueryFinal'
+  runId: string
+  timeoutInSeconds: number
 }
 interface SubscribeCurrentStateMessage {
-    _type: "SubscribeCurrentState",
-    names: string[]
+  _type: 'SubscribeCurrentState'
+  names: string[]
 }
 
-export type WebSocketCommandMessage = QueryFinalMessage | SubscribeCurrentStateMessage
+export type WebSocketCommandMessage =
+  | QueryFinalMessage
+  | SubscribeCurrentStateMessage

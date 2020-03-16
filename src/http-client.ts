@@ -1,32 +1,36 @@
-import { ServiceResponses as ServiceResponse } from "./components/ServiceResponse";
+import { ServiceResponses as ServiceResponse } from './components/ServiceResponse'
 
 type RequestConfig = {
-  url: string,
-  method: string,
-  headers: Headers,
+  url: string
+  method: string
+  headers: Headers
   body: string
 }
 
 let interceptorHooks: Function[] = []
 
-export const post = async <T extends ServiceResponse>(hostname: string, port: number, payload: any): Promise<T> => {
-  const url = `http://${hostname}:${port}/post-endpoint`;
+export const post = async <T extends ServiceResponse>(
+  hostname: string,
+  port: number,
+  payload: any,
+): Promise<T> => {
+  const url = `http://${hostname}:${port}/post-endpoint`
   executeInterceptors()
   return clientFetch(url, payload, 'POST')
 }
 
-let headers = new Headers([["Content-Type", "application/json"]])
+let headers = new Headers([['Content-Type', 'application/json']])
 
 const setHeaders = (_headers: Headers) => {
   _headers.forEach((k: string, v: string) => headers.set(k, v))
 }
 
 const registerInterceptors = (fs: Function[]) => {
-  fs.map(f => interceptorHooks[interceptorHooks.length - 1] = f)
+  fs.map(f => (interceptorHooks[interceptorHooks.length - 1] = f))
 }
 
 const unRegisterInterceptors = (f: Function) => {
-  const index = interceptorHooks.indexOf(f);
+  const index = interceptorHooks.indexOf(f)
   if (index !== -1) {
     interceptorHooks.splice(index, 1)
   } else {
@@ -37,12 +41,12 @@ const unRegisterInterceptors = (f: Function) => {
 const executeInterceptors = () => {
   interceptorHooks.forEach((element: Function) => {
     element.call(this)
-  });
+  })
 }
 
 let commonHeaders = {
-  "header": "value",
-  "header2": "value2"
+  header: 'value',
+  header2: 'value2',
 } as { [key: string]: string }
 
 const logger = (req: RequestConfig) => {
@@ -50,41 +54,56 @@ const logger = (req: RequestConfig) => {
   return req
 }
 
-const addHeaders = (url: string, req: RequestConfig, extraHeaders?: Headers) => {
+const addHeaders = (
+  url: string,
+  req: RequestConfig,
+  extraHeaders?: Headers,
+) => {
   if (!!req.headers) {
-    !!commonHeaders && Object.keys(commonHeaders).forEach((k: string) => req.headers.set(k, commonHeaders[k]))
-    !!extraHeaders && Object.keys(extraHeaders).forEach((k: string) => req.headers.set(k, commonHeaders[k]))
+    !!commonHeaders &&
+      Object.keys(commonHeaders).forEach((k: string) =>
+        req.headers.set(k, commonHeaders[k]),
+      )
+    !!extraHeaders &&
+      Object.keys(extraHeaders).forEach((k: string) =>
+        req.headers.set(k, commonHeaders[k]),
+      )
   }
   return new Request(url, req)
 }
 
 const handleErrors = (res: any) => {
   if (!res.ok) {
-    throw new Error(res.statusText);
+    throw new Error(res.statusText)
   }
-  return res;
+  return res
 }
 class Success {
-  constructor(readonly result: any) { }
+  constructor(readonly result: any) {}
 }
 class Error {
-  constructor(readonly reason: string) { }
+  constructor(readonly reason: string) {}
 }
 
-const clientFetch = async (url: string, payload: any, method: "POST" | "GET"): Promise<any> => {
+const clientFetch = async (
+  url: string,
+  payload: any,
+  method: 'POST' | 'GET',
+): Promise<any> => {
   const request: RequestConfig = {
     url: url,
     method: method,
     headers: headers,
-    body: JSON.stringify(payload)
-  };
+    body: JSON.stringify(payload),
+  }
 
   return new Promise((resolve, reject) => {
-    fetch(url, request).then(handleErrors)
+    fetch(url, request)
+      .then(handleErrors)
       .then(async response => {
-        const body: any = await response.json();
-        resolve(new Success(body));
+        const body: any = await response.json()
+        resolve(new Success(body))
       })
-      .catch((e) => reject(new Error(e.message)));
+      .catch(e => reject(new Error(e.message)))
   })
 }
