@@ -1,5 +1,4 @@
 import 'whatwg-fetch'
-import { ServiceResponses as ServiceResponse } from '../ServiceResponse'
 
 type RequestConfig = {
   url: string
@@ -10,7 +9,7 @@ type RequestConfig = {
 
 let interceptorHooks: Function[] = []
 
-export const post = async <T extends ServiceResponse>(
+export const post = async <T>(
   hostname: string,
   port: number,
   payload: any,
@@ -79,18 +78,12 @@ const handleErrors = (res: any) => {
   }
   return res
 }
-class Success {
-  constructor(readonly result: any) {}
-}
-class Error {
-  constructor(readonly reason: string) {}
-}
 
-const clientFetch = async (
+const clientFetch = async <T>(
   url: string,
   payload: any,
   method: 'POST' | 'GET',
-): Promise<any> => {
+): Promise<T> => {
   const request: RequestConfig = {
     url: url,
     method: method,
@@ -98,13 +91,10 @@ const clientFetch = async (
     body: JSON.stringify(payload),
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) =>
     fetch(url, request)
       .then(handleErrors)
-      .then(async response => {
-        const body: any = await response.json()
-        resolve(new Success(body))
-      })
-      .catch(e => reject(new Error(e.message)))
-  })
+      .then(async response => resolve(await response.json()))
+      .catch(e => reject(new Error(e.message))),
+  )
 }

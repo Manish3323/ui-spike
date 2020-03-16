@@ -1,7 +1,7 @@
-import { ComponentId } from '../location-client/types/Connection'
-import { intKey, IntKey, StringKey, stringKey } from '../params/Key'
-import { Parameter } from '../params/Parameter'
-import { Ws } from '../utils/Ws'
+import { ComponentId } from '../location/types/Connection'
+import { intKey, IntKey, StringKey, stringKey } from '../../params/Key'
+import { Parameter } from '../../params/Parameter'
+import { Ws } from '../../utils/Ws'
 import { CommandClient, CurrentState } from './CommandClient'
 import {
   CommandMessage,

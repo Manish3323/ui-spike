@@ -1,5 +1,5 @@
-import { Parameter } from '../../params/Parameter'
-import { Key } from '../../params/Key'
+import { Parameter } from '../../../params/Parameter'
+import { Key } from '../../../params/Key'
 
 type SubmitResponseTypes =
   | 'Error'

@@ -6,5 +6,7 @@ const locationApi = new LocationClient('localhost', 7654)
 test('list', async () => {
   const locations: Array<TypedLocation> = await locationApi.list()
 
-  locations.forEach(console.log)
+  console.log('==========================================')
+  console.log(locations)
+  console.log('==========================================')
 })

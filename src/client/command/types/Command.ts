@@ -1,7 +1,7 @@
-import { Key } from '../../params/Key'
-import { Parameter } from '../../params/Parameter'
+import { Key } from '../../../params/Key'
+import { Parameter } from '../../../params/Parameter'
 import { WebSocketCommandMessage } from './WebsocketCommand'
-import { ComponentId } from '../../location-client/types/Connection'
+import { ComponentId } from '../../location/types/Connection'
 
 export interface Command {
   source: string

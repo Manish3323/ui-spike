@@ -1,10 +1,10 @@
-import { post } from '../utils/http-client'
-import { Subscription, Ws } from '../utils/Ws'
+import { post } from '../../utils/Http'
+import { Subscription, Ws } from '../../utils/Ws'
 import { CommandMessage, GatewayCommand } from './types/Command'
 import { CommandServiceResponses } from './types/response'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
-import { ComponentId } from '../location-client/types/Connection'
-import { Parameter } from '../params/Parameter'
+import { ComponentId } from '../location/types/Connection'
+import { Parameter } from '../../params/Parameter'
 
 export interface CommandClient {
   submit(

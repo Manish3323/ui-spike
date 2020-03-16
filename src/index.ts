@@ -1,5 +1,3 @@
-export * from './ServiceResponse'
-
 // ====== Params ======
 export * from './params/BaseKey'
 export * from './params/Key'
@@ -7,13 +5,13 @@ export * from './params/Parameter'
 export * from './params/Units'
 
 // ====== Location ======
-export * from './location-client/LocationClient'
-export * from './location-client/types/Connection'
-export * from './location-client/types/Location'
-export * from './location-client/types/response'
+export * from './client/location/LocationClient'
+export * from './client/location/types/Connection'
+export * from './client/location/types/Location'
+export * from './client/location/types/response'
 
 // ====== Command ======
-export * from './command-client/CommandClient'
-export * from './command-client/types/Command'
-export * from './command-client/types/response'
-export * from './command-client/types/WebsocketCommand'
+export * from './client/command/CommandClient'
+export * from './client/command/types/Command'
+export * from './client/command/types/response'
+export * from './client/command/types/WebsocketCommand'
