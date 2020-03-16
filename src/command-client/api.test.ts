@@ -10,7 +10,7 @@ import {
 } from './types/Command'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
 
-const commandClient = CommandClient('localhost', 9999)
+const commandClient = CommandClient('localhost', 8090)
 
 test('http', async () => {
   const intParam: Parameter<IntKey> = intKey('someInt').set([12, 233, 3, 3])
@@ -18,8 +18,8 @@ test('http', async () => {
   const parameters: Parameter<any>[] = [intParam, sParam]
   const setupCommand: HttpMessageControlCommand = {
     _type: 'Setup',
-    source: 'TCS.filter.wheel',
-    commandName: 'move',
+    source: 'CSW.ncc.trombone',
+    commandName: 'immediate',
     maybeObsId: ['obs001'],
     paramSet: parameters,
   }
@@ -30,8 +30,8 @@ test('http', async () => {
   }
 
   const assembly: ComponentId = {
-    prefix: 'NFIRAOS.SampleAssembly',
-    componentType: 'Assembly',
+    prefix: 'CSW.ncc.trombone',
+    componentType: 'HCD',
   }
 
   console.log('Submitting command ...')
@@ -40,16 +40,16 @@ test('http', async () => {
   console.log(response)
 })
 
-test('websocket', () => {
-  const websocket = new Ws('localhost', 52489)
+test('websocket', async () => {
+  const websocket = new Ws('localhost', 8090)
 
   const command: WebSocketCommandMessage = {
     _type: 'SubscribeCurrentState',
-    names: ['stateName1'],
+    names: [],
   }
   const componentId: ComponentId = {
-    prefix: 'ESW.test',
-    componentType: 'assembly',
+    prefix: 'CSW.ncc.trombone',
+    componentType: 'HCD',
   }
   const gatewayCommand: GatewayCommand = {
     _type: 'ComponentCommand',
@@ -61,5 +61,11 @@ test('websocket', () => {
   websocket.send(gatewayCommand)
 
   console.log('Subscribing to current state ...')
-  websocket.subscribe<CurrentState>(message => console.log(message))
-})
+  websocket.subscribe<CurrentState>(console.log)
+
+  await sleep(100000)
+}, 100000)
+
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
