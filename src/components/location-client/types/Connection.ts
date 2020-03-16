@@ -7,4 +7,4 @@ interface ComponentId {
   componentType: ComponentType
 }
 
-type ComponentType = 'Assembly' | 'HCD' | 'Sequencer' | 'Service'
+type ComponentType = 'Assembly' | 'HCD' | 'Sequencer' | 'Service' | 'assembly'
