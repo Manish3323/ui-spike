@@ -8,7 +8,7 @@ import {
   HttpMessageControlCommand,
   CommandMessage,
 } from './types/Command'
-import { Ws } from '../../ws'
+import { Ws } from '../../Ws'
 import { Parameter } from '../../params/Parameter'
 const commandApi = new CommandApi('localhost', 9999)
 

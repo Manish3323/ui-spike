@@ -1,13 +1,6 @@
 import { post } from '../../http-client'
-import { Ws } from '../../ws'
-import {
-  HttpMessageControlCommand,
-  GatewayCommand,
-  CommandMessage,
-  Command,
-} from './types/Command'
-import { Parameter } from '../../params/Parameter'
-import { IntKey, intKey, stringKey, StringKey } from '../../params/Key'
+import { Ws } from '../../Ws'
+import { CommandMessage, GatewayCommand } from './types/Command'
 import { CommandServiceResponses } from './types/response'
 import { WebSocketCommandMessage } from './types/WebsocketCommand'
 
@@ -15,6 +8,7 @@ export class CommandApi {
   private hostname: string
   private port: number
 
+  // fixme: should it also take ComponentId similar to scala?
   constructor($hostname: string, $port: number) {
     this.hostname = $hostname
     this.port = $port

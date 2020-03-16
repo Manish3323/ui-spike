@@ -12,6 +12,7 @@ export class Ws {
     })
   }
 
+  // fixme: msg type
   send(msg: any) {
     this.socket.then(ws => ws.send(JSON.stringify(msg)))
   }
@@ -29,6 +30,7 @@ export class Ws {
   }
 }
 
+// fixme
 export interface Subscripription {
   cancel: () => void
 }
