@@ -1,4 +1,5 @@
 export interface Connection {
+  _type: 'AkkaConnection' | 'HttpConnection' | 'TcpConnection'
   componentId: ComponentId
 }
 
@@ -8,8 +9,10 @@ export interface ComponentId {
 }
 
 export type ComponentType =
-  | 'Assembly'
   | 'HCD'
-  | 'Sequencer'
+  | 'Assembly'
   | 'Service'
-  | 'assembly'
+  | 'Container'
+  | 'Sequencer'
+  | 'SequenceComponent'
+  | 'Machine'

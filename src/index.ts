@@ -8,7 +8,6 @@ export * from './params/Units'
 export * from './client/location/LocationClient'
 export * from './client/location/types/Connection'
 export * from './client/location/types/Location'
-export * from './client/location/types/response'
 
 // ====== Command ======
 export * from './client/command/CommandClient'

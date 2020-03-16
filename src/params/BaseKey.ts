@@ -24,7 +24,5 @@ export class ChoiceKeyFactory<T extends Key> {
   setChoice = <S extends Primitive[]>(
     choices: S,
     values: typeof choices[number][],
-  ) => {
-    return new Parameter(this.keyName, this.keyTag, values, this.units)
-  }
+  ) => new Parameter(this.keyName, this.keyTag, values, this.units)
 }
